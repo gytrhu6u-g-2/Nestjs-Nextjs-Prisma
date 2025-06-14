@@ -5,41 +5,34 @@ export default NextAuth({
   providers: [
     CredentialsProvider({
       name: "Credentials",
-      // `credentials`は、サインインページでフォームを生成するために使用されます。
       credentials: {
-        email: { label: "Eメール", type: "text" },
-        password: { label: "パスワード", type: "password" },
+        email: { label: "Username", type: "email" },
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const user = {
-          id: "1",
-          name: "test",
-          email: "test@mail.com",
-          backendToken: "backEndAccessToken",
-        };
-
-        if (user) {
-          // 返されたオブジェクトはすべて、JWT の「user」プロパティに保存されます。
-          return user;
-        } else {
-          // 認証失敗の場合はnullを返却します。
-          return null;
+        const res = await fetch("/test/endpoint", {
+          method: "POST",
+          body: JSON.stringify(credentials),
+          headers: { "Content-Type": "application/json" },
+        });
+        const data = await res.json();
+        if (res.ok && data) {
+          return data;
         }
+        return null;
       },
     }),
   ],
   callbacks: {
-    // `jwt()`コールバックは`authorize()`の後に実行されます。
-    jwt({ token, user }) {
+    async jwt({ token, user }) {
       if (user) {
-        token.backendToken = user.backendToken;
+        token = user;
       }
       return token;
     },
-    // `session()`コールバックは`jwt()`の後に実行されます。
-    session({ session, token }) {
-      session.user.backendToken = token.backendToken;
-      return session;
-    },
+  },
+  async session({ session, token, user }) {
+    session.user = token;
+    return session;
   },
 });
