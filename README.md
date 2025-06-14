@@ -16,7 +16,7 @@ DATABASE_URL=postgresql://postgres:postgres@db:5432/mydb
 # Docker コマンド
 
 ・Docker 起動
-docker-compose up --build
+docker compose up --build
 
 ・Prisma 初期化
 npx prisma generate
@@ -25,7 +25,7 @@ npx prisma migrate dev --name init
 ・Docker 全てのコンテナを再ビルドして起動する
 docker compose down
 docker compose build
-docker compose up -d
+docker compose up --build
 
 ・コンテナの中に入り込む
 docker ps ※コンテナの確認

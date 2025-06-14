@@ -2,18 +2,26 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# npm を使って依存関係をインストール
+# package.json と package-lock.json をコピー
 COPY package*.json ./
-RUN npm install
 
-# アプリケーションの全ファイルをコピー
+# 依存関係をインストール
+RUN npm ci --only=production
+
+# Prisma CLI をグローバルにインストール
+RUN npm install -g prisma
+
+# アプリケーションファイルをコピー
 COPY . .
 
-# build スクリプトの実行（package.json に "build" が定義されている必要があります）
+# Prisma クライアントを生成
+RUN npx prisma generate
+
+# TypeScript をビルド
 RUN npm run build
 
-# ポートを公開（NestJS デバッグ用途含む）
+# ポートを公開
 EXPOSE 3000 9229 5555
 
-# デバッグ起動（package.json に "start:debug" が定義されている必要あり）
+# 起動コマンド
 CMD ["npm", "run", "start:debug"]
