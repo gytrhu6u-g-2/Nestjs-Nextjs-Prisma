@@ -28,7 +28,7 @@ services:
         npm run start:debug
       "
     ports:
-      - "3001:3000"
+      - "3001:3001"
       - "9229:9229"
     volumes:
       - ./backend:/app
@@ -46,12 +46,14 @@ services:
     container_name: next-frontend
     ports:
       - "3000:3000"
+      - 9230:9229
     volumes:
       - ./frontend:/app
       - /app/node_modules
     depends_on:
       - backend
     restart: unless-stopped
+    command: [npm, run, debug]
 
   prisma:
     build: ./backend
