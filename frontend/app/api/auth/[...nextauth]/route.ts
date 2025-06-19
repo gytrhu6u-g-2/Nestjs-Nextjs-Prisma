@@ -47,6 +47,13 @@ const handler = NextAuth({
       },
     }),
   ],
+  session: {
+    strategy: "jwt",
+    maxAge: 60 * 60 * 6, // 6時間 = 21600秒
+  },
+  jwt: {
+    maxAge: 60 * 60 * 6, // 6時間 = 21600秒
+  },
   callbacks: {
     async jwt({ token, user }) {
       return { ...token, ...user };
