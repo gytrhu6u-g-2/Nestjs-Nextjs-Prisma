@@ -7,14 +7,13 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useSession, signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
   const router = useRouter();
