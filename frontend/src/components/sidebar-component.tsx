@@ -26,20 +26,29 @@ import {
 const data = {
   navMain: [
     {
-      title: "Home",
+      title: "ホーム",
       items: [
         {
-          title: "Dashboard",
+          title: "ホーム",
           url: "/dashboard",
         },
       ],
     },
     {
-      title: "Todo",
+      title: "投稿",
       items: [
         {
-          title: "Todo",
-          url: "/todo",
+          title: "新規投稿",
+          url: "/post",
+        },
+      ],
+    },
+    {
+      title: "見積",
+      items: [
+        {
+          title: "見積作成",
+          url: "/estimate/estimate-form",
         },
       ],
     },
