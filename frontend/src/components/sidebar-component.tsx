@@ -1,55 +1,50 @@
 "use client";
-import { Home, Settings, User, FileText, BarChart3, Mail } from "lucide-react";
+import { BarChart3, icons } from "lucide-react";
 
 import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarInset,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
   SidebarProvider,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { Footer } from "./app-sidebar";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "./ui/collapsible";
 
-const navigationItems = [
-  {
-    title: "ホーム",
-    icon: Home,
-    url: "#",
-    isActive: true,
-  },
-  {
-    title: "プロフィール",
-    icon: User,
-    url: "#",
-  },
-  {
-    title: "ドキュメント",
-    icon: FileText,
-    url: "#",
-  },
-  {
-    title: "アナリティクス",
-    icon: BarChart3,
-    url: "#",
-  },
-  {
-    title: "メッセージ",
-    icon: Mail,
-    url: "#",
-  },
-  {
-    title: "設定",
-    icon: Settings,
-    url: "#",
-  },
-];
-
+const data = {
+  navMain: [
+    {
+      title: "Home",
+      items: [
+        {
+          title: "Dashboard",
+          url: "/dashboard",
+        },
+      ],
+    },
+    {
+      title: "Todo",
+      items: [
+        {
+          title: "Todo",
+          url: "/todo",
+        },
+      ],
+    },
+  ],
+};
 export default function SidebarComponent({
   children,
 }: {
@@ -72,28 +67,51 @@ export default function SidebarComponent({
 
         <SidebarContent>
           <SidebarGroup>
-            <SidebarGroupLabel>メインメニュー</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {navigationItems.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild isActive={item.isActive}>
-                      <a href={item.url} className="flex items-center gap-2">
-                        <item.icon className="size-4" />
-                        <span>{item.title}</span>
-                      </a>
-                    </SidebarMenuButton>
+            <SidebarMenu className="gap-2">
+              {data.navMain.map((item) => (
+                <Collapsible
+                  key={item.title}
+                  defaultOpen
+                  className="group/collapsible"
+                >
+                  <SidebarMenuItem>
+                    <CollapsibleTrigger asChild>
+                      <SidebarMenuButton asChild>
+                        <a href={item.url} className="font-medium">
+                          {item.title}
+                        </a>
+                      </SidebarMenuButton>
+                    </CollapsibleTrigger>
+                    {item.items?.length ? (
+                      <CollapsibleContent>
+                        <SidebarMenuSub className="ml-0 border-l-0 px-1.5">
+                          {item.items.map((subItem) => (
+                            <SidebarMenuSubItem key={subItem.title}>
+                              <SidebarMenuSubButton
+                                asChild
+                                isActive={subItem.isActive}
+                              >
+                                <a href={subItem.url}>{subItem.title}</a>
+                              </SidebarMenuSubButton>
+                            </SidebarMenuSubItem>
+                          ))}
+                        </SidebarMenuSub>
+                      </CollapsibleContent>
+                    ) : null}
                   </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
+                </Collapsible>
+              ))}
+            </SidebarMenu>
           </SidebarGroup>
         </SidebarContent>
 
         <SidebarRail />
+        <Footer />
       </Sidebar>
 
-      <SidebarInset>{children}</SidebarInset>
+      <SidebarInset>
+        <div className="container mx-auto p-3">{children}</div>
+      </SidebarInset>
     </SidebarProvider>
   );
 }
