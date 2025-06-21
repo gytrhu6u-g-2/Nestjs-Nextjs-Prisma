@@ -22,6 +22,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "./ui/collapsible";
+import { Button } from "./ui/button";
 
 const data = {
   navMain: [
@@ -119,7 +120,7 @@ export default function SidebarComponent({
       </Sidebar>
 
       <SidebarInset>
-        <div className="container mx-auto p-3">{children}</div>
+        <div className="container mx-auto">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );

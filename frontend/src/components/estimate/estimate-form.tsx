@@ -14,6 +14,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Car } from "lucide-react";
 
 interface QuotationItem {
   id: string;
@@ -132,9 +133,9 @@ export default function EstimateForm() {
   const total = subtotal + tax;
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white">
+    <Card className="max-w-4xl mx-auto p-6 bg-white">
       {/* Header */}
-      <div className="flex justify-end mb-5">
+      <div className="flex justify-end">
         <div className="flex flex-col items-end text-right space-y-1">
           <div className="flex items-center gap-2">
             <Label htmlFor="quotation-date">見積日付:</Label>
@@ -159,97 +160,97 @@ export default function EstimateForm() {
         </div>
       </div>
 
-      <CardHeader className="bg-gray-100 mb-5">
-        <h2 className="text-lg font-semibold text-center">御見積書</h2>
+      <CardHeader className="bg-neutral-400 mb-5 h-15 flex items-center justify-center">
+        <h2 className="text-2xl font-semibold text-center text-white tracking-widest">
+          御見積書
+        </h2>
       </CardHeader>
 
       {/* Main Content */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
         {/* Client Information */}
-        <Card>
+        <Card className="py-1">
           <CardContent className="p-4 space-y-4">
-            <div>
-              <Label htmlFor="client-name">○○株式会社 様</Label>
+            <div className="flex border-b-2 border-black pb-1">
               <Input
                 id="client-name"
                 value={clientName}
                 onChange={(e) => setClientName(e.target.value)}
                 placeholder="会社名を入力"
-                className="mt-1"
+                className="mt-1 mr-2"
               />
+              <Label className="flex items-end text-base" htmlFor="client-name">
+                様
+              </Label>
             </div>
           </CardContent>
         </Card>
 
         {/* Company Information */}
-        <Card>
+        <Card className="py-1">
           <CardContent className="p-4 space-y-4">
-            <div>
+            {/* 会社名 */}
+            <div className="mb-2">
               <Input
                 id="company-name"
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
-                className="mt-1"
                 placeholder="会社名"
               />
             </div>
-            <div className="flex">
-              <Label
-                htmlFor="postal-code"
-                className="text-sm font-medium w-20 h-10 flex items-center justify-center px-2 rounded"
-              >
-                〒
-              </Label>
+
+            {/* 郵便番号 */}
+            <div className="flex items-center gap-1 mb-2">
+              <Label htmlFor="postal-code">〒</Label>
               <Input
                 id="postal-code"
                 value={postalCode}
                 onChange={(e) => setPostalCode(e.target.value)}
                 placeholder="100-0001"
-                className="mt-1"
+                className="w-full"
               />
             </div>
-            <div>
+
+            {/* 住所 */}
+            <div className="mb-2">
               <Textarea
                 id="company-address"
                 value={companyAddress}
                 onChange={(e) => setCompanyAddress(e.target.value)}
-                className="mt-1"
                 rows={3}
                 placeholder="住所"
               />
             </div>
-            <div className="flex">
-              <Label
-                htmlFor="company-phone"
-                className="text-sm font-medium w-20 h-10 flex items-center justify-center px-2 rounded"
-              >
-                TEL
-              </Label>
+
+            {/* 電話番号 */}
+            <div className="flex items-center gap-1 mb-2">
+              <Label htmlFor="company-phone">TEL</Label>
               <Input
                 id="company-phone"
                 value={companyPhone}
                 onChange={(e) => setCompanyPhone(e.target.value)}
-                className="mt-1"
+                placeholder="03-1234-5678"
+                className="w-full"
               />
             </div>
-            <div className="flex">
-              <Label
-                htmlFor="company-manager"
-                className="text-sm font-medium w-20 h-10 flex items-center justify-center px-2 rounded"
-              >
+
+            {/* 担当者 */}
+            <div className="flex items-center gap-1 mb-2">
+              <Label htmlFor="company-manager" className="w-14">
                 担当者
               </Label>
               <Input
                 id="company-manager"
                 value={companyManager}
                 onChange={(e) => setCompanyManager(e.target.value)}
-                className="mt-1"
+                placeholder="山田 太郎"
+                className="w-full"
               />
             </div>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="py-0">
           <CardContent className="p-4 space-y-4">
             <div className="text-sm text-gray-600 space-y-1">
               <p>下記の通りお見積もりいたします。</p>
@@ -260,15 +261,15 @@ export default function EstimateForm() {
         </Card>
 
         <div className="flex gap-1">
-          <Card className="flex-1 max-w-sm">
+          <Card className="flex-1 max-w-sm py-0">
             <CardContent className="p-4 space-y-4">{/* 内容 */}</CardContent>
           </Card>
 
-          <Card className="flex-1 max-w-sm">
+          <Card className="flex-1 max-w-sm py-0">
             <CardContent className="p-4 space-y-4">{/* 内容 */}</CardContent>
           </Card>
 
-          <Card className="flex-1 max-w-sm">
+          <Card className="flex-1 max-w-sm py-0">
             <CardContent className="p-4 space-y-4">{/* 内容 */}</CardContent>
           </Card>
         </div>
@@ -298,12 +299,12 @@ export default function EstimateForm() {
       {/* Quotation Details */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-6">
         {/* Left Column */}
-        <Card>
+        <Card className="py-1">
           <CardContent className="p-4 space-y-4">
             <div className="flex">
               <Label
                 htmlFor="product-name"
-                className="text-sm font-medium w-28 h-10 flex items-center justify-center bg-gray-100 px-2 rounded"
+                className="text-sm font-medium w-28 h-10 flex items-center justify-center bg-neutral-400 text-white px-2 rounded"
               >
                 品名
               </Label>
@@ -318,7 +319,7 @@ export default function EstimateForm() {
             <div className="flex">
               <Label
                 htmlFor="loading-location"
-                className="text-sm font-medium w-28 h-10 flex items-center justify-center bg-gray-100 px-2 rounded"
+                className="text-sm font-medium w-28 h-10 flex items-center justify-center bg-neutral-400 text-white px-2 rounded"
               >
                 積地
               </Label>
@@ -333,7 +334,7 @@ export default function EstimateForm() {
             <div className="flex">
               <Label
                 htmlFor="payment-terms"
-                className="text-sm font-medium w-28 h-10 flex items-center justify-center bg-gray-100 px-2 rounded"
+                className="text-sm font-medium w-28 h-10 flex items-center justify-center bg-neutral-400 text-white px-2 rounded"
               >
                 支払条件
               </Label>
@@ -349,12 +350,12 @@ export default function EstimateForm() {
         </Card>
 
         {/* Right Column */}
-        <Card>
+        <Card className="py-1">
           <CardContent className="p-4 space-y-4">
             <div className="flex items-center gap-2">
               <Label
                 htmlFor="transport-content"
-                className="text-sm font-medium w-28 h-10 flex items-center justify-center bg-gray-100 px-2 rounded"
+                className="text-sm font-medium w-28 h-10 flex items-center justify-center bg-neutral-400 text-white px-2 rounded"
               >
                 輸送内容
               </Label>
@@ -370,7 +371,7 @@ export default function EstimateForm() {
             <div className="flex items-center gap-2">
               <Label
                 htmlFor="unloading-location"
-                className="text-sm font-medium w-28 h-10 flex items-center justify-center bg-gray-100 px-2 rounded"
+                className="text-sm font-medium w-28 h-10 flex items-center justify-center bg-neutral-400 text-white px-2 rounded"
               >
                 卸地
               </Label>
@@ -386,7 +387,7 @@ export default function EstimateForm() {
             <div className="flex items-center gap-2">
               <Label
                 htmlFor="quote-validity"
-                className="text-sm font-medium w-28 h-10 flex items-center justify-center bg-gray-100 px-2 rounded"
+                className="text-sm font-medium w-28 h-10 flex items-center justify-center bg-neutral-400 text-white px-2 rounded"
               >
                 見積有効期限
               </Label>
@@ -403,27 +404,27 @@ export default function EstimateForm() {
       </div>
 
       {/* Items Table */}
-      <Card className="mb-6">
+      <Card className=" py-1 pb-6 mb-6">
         <CardContent className="mt-6">
           <Table>
             <TableHeader>
-              <TableRow className="bg-gray-100">
-                <TableHead className="w-[25%] text-center border">
+              <TableRow className="bg-neutral-400 hover:bg-neutral-400">
+                <TableHead className="w-[25%] text-center border text-white">
                   摘要
                 </TableHead>
-                <TableHead className="w-[10%] text-center border">
+                <TableHead className="w-[10%] text-center border text-white">
                   距離
                 </TableHead>
-                <TableHead className="w-[15%] text-center border">
+                <TableHead className="w-[15%] text-center border text-white">
                   単価
                 </TableHead>
-                <TableHead className="w-[15%] text-center border">
+                <TableHead className="w-[15%] text-center border text-white">
                   数量
                 </TableHead>
-                <TableHead className="w-[10%] text-center border">
+                <TableHead className="w-[10%] text-center border text-white">
                   単位
                 </TableHead>
-                <TableHead className="w-[15%] text-center border">
+                <TableHead className="w-[15%] text-center border text-white">
                   金額
                 </TableHead>
               </TableRow>
@@ -531,11 +532,11 @@ export default function EstimateForm() {
               <TableRow>
                 <TableCell
                   colSpan={5}
-                  className="border text-center font-bold bg-gray-100"
+                  className="border text-center font-bold bg-gray-50"
                 >
                   合　計
                 </TableCell>
-                <TableCell className="border text-right font-bold bg-gray-100 text-lg">
+                <TableCell className="border text-right font-bold bg-gray-50 text-lg">
                   {total.toLocaleString()}
                 </TableCell>
               </TableRow>
@@ -576,10 +577,14 @@ export default function EstimateForm() {
 
       {/* Action Buttons */}
       <div className="flex justify-end gap-4 mt-8">
-        <Button variant="outline">プレビュー</Button>
-        <Button variant="outline">PDF出力</Button>
-        <Button>見積書を保存</Button>
+        <Button variant="outline" className="hover:cursor-pointer">
+          プレビュー
+        </Button>
+        <Button variant="outline" className="hover:cursor-pointer">
+          PDF出力
+        </Button>
+        <Button className="hover:cursor-pointer">見積書を保存</Button>
       </div>
-    </div>
+    </Card>
   );
 }
